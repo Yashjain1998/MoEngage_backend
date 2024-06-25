@@ -9,16 +9,10 @@ async function login(req, res) {
     if (!user) return res.status(400).json({ error: "Invalid credentials" });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
-    jwt.sign(
-      { user: { id: user.id } },
-      process.env.SECRET,
-      { expiresIn: "1h" },
-      (err, token) => {
-        if (err) throw err;
-        res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 });
-        res.json({ message: "Login successful" });
-      }
-    );
+    const token = jwt.sign({ user: { id: user.id } }, process.env.SECRET, {
+      expiresIn: "1h",
+    });
+    return res.status(201).json({token})
   } catch (error) {
     console.error("Error logging in user:", error);
     res.status(500).json({ error: "Server error" });

@@ -5,11 +5,13 @@ import authMiddleware from "./midderware/authMidderware.js";
 import getUserDetails from "./controller/getUserDetails.js";
 import register from "./controller/register.js";
 import login from "./controller/login.js";
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
+import cors from "cors"
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 app.use(cookieParser()); // Parse cookies
 mongodb();
 
