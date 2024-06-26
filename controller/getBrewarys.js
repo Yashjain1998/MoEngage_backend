@@ -1,8 +1,11 @@
 async function getBrewarys(req, res) {
-  const url = "https://api.openbrewerydb.org/v1/breweries?per_page=3";
+  const quary=req.params.quary;
+  console.log(req.params.quary);
+  const url = `https://api.openbrewerydb.org/v1/breweries?${quary}`;
   let brewarys = await fetch(url);
   brewarys = await brewarys.json();
-  res.status(201).json({ brewarys: brewarys });
+  console.log(brewarys)
+  res.status(201).json({ brewaries: brewarys });
 }
 
 export default getBrewarys;

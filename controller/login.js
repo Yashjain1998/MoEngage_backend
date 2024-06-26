@@ -10,10 +10,10 @@ async function login(req, res) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
     const token = jwt.sign({ user: { id: user.id } }, process.env.SECRET, {
-      expiresIn: "1h",
+      
     });
     return res.status(201).json({token})
-  } catch (error) {
+  } catch (error) {navigator
     console.error("Error logging in user:", error);
     res.status(500).json({ error: "Server error" });
   }
